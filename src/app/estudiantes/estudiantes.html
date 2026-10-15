@@ -1,0 +1,51 @@
+<div class="container py-4">
+  <h2 class="mb-2">Reporte de Estudiantes</h2>
+  <p class="text-muted">Consulta de estudiante.json con Angular HttpClient</p>
+
+  <div class="row g-2 mb-3">
+    <div class="col-md-9">
+      <input class="form-control" placeholder="Buscar por nombre"
+             [(ngModel)]="busqueda">
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-primary w-100" (click)="cargarEstudiantes()">
+        Recargar
+      </button>
+    </div>
+  </div>
+
+  <p *ngIf="cargando">Consultando estudiantes...</p>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!cargando && !error">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Nota 1</th>
+          <th>Nota 2</th>
+          <th>Nota 3</th>
+          <th class="text-center">Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of estudiantesFiltrados; let i = index">
+          <td>{{ e.nombre }}</td>
+          <td>{{ e.nota1 }}</td>
+          <td>{{ e.nota2 }}</td>
+          <td>{{ e.nota3 }}</td>
+          <td class="text-center">
+            <button class="btn btn-info btn-sm text-white" (click)="verDetalle(e, i)">
+              Detalle
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Resultados: {{ estudiantesFiltrados.length }}</p>
+    <p *ngIf="estudiantesFiltrados.length === 0" class="text-muted">
+      No se encontraron estudiantes.
+    </p>
+  </div>
+</div>

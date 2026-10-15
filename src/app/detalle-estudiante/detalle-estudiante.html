@@ -1,0 +1,69 @@
+<div class="container py-4">
+  <h2 class="mb-3">Detalle del Estudiante</h2>
+
+  <p *ngIf="cargando">Cargando detalle...</p>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="card shadow-sm" *ngIf="estudiante && !cargando">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">{{ estudiante.nombre }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <div class="p-3 border rounded bg-light text-center">
+            <span class="text-muted d-block">Nota 1</span>
+            <strong class="fs-4">{{ estudiante.nota1 }}</strong>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 border rounded bg-light text-center">
+            <span class="text-muted d-block">Nota 2</span>
+            <strong class="fs-4">{{ estudiante.nota2 }}</strong>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 border rounded bg-light text-center">
+            <span class="text-muted d-block">Nota 3</span>
+            <strong class="fs-4">{{ estudiante.nota3 }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Suma de notas:</strong>
+          <span class="fs-5">{{ suma }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Promedio:</strong>
+          <span class="fs-5 fw-bold">{{ promedio | number:'1.2-2' }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Estado académico:</strong>
+          <span class="badge fs-6"
+                [ngClass]="estado === 'Aprobado' ? 'bg-success' : 'bg-danger'">
+            {{ estado }}
+          </span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Observación:</strong>
+          <span class="badge fs-6"
+                [ngClass]="{
+                  'bg-primary': observacion === 'Excelente',
+                  'bg-warning text-dark': observacion === 'Regular',
+                  'bg-danger': observacion === 'En riesgo'
+                }">
+            {{ observacion }}
+          </span>
+        </li>
+      </ul>
+
+      <button class="btn btn-secondary" (click)="volver()">
+        Volver a la tabla
+      </button>
+    </div>
+  </div>
+</div>
